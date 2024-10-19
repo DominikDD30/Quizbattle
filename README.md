@@ -1,50 +1,32 @@
-# Welcome to your Expo app 👋
+## Quizzbattle
+A Cross-Platform Real-Time Quiz Game Application
+# Description
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Quizzbattle is a cross-platform application that allows users to compete in real-time quizzes with friends. The app lets users create game rooms where others can join, and then compete by answering random questions from popular categories such as sports, science, technology, and more.
+# Key Features:
 
-## Get started
+- Create rooms for players to join and compete.
+- Real-time gameplay with friends.
+- Random questions from various popular categories.
+- Cross-platform, allowing you to play in real-time with friends on iOS, Android, and the web.
+- Automatic translation, each player sees the questions in their selected language.
 
-1. Install dependencies
+# Technologies
 
-   ```bash
-   npm install
-   ```
+Quizzbattle uses the following technologies:
 
-2. Start the app
+- <strong>React Native:</strong> For building the user interface on mobile platforms (iOS and Android) as well as the web.
+- <strong>Express.js:</strong> For setting up the backend server and REST API.
+- <strong>Socket.io:</strong> To handle real-time, two-way communication between clients and the server, ensuring real-time synchronization of game events.
 
-   ```bash
-    npx expo start
-   ```
+- # Installation
+- Android
+  download APK and install on your device
+  https://drive.google.com/file/d/1_lWeEjgsGl6zlKuV1gVjm7xZ4hfT3_Ry/view
 
-In the output, you'll find options to open the app in a
+- Web
+  clone project and run:npx expo start -c
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Ios
+  clone project and run:npx expo start -c
+  then scan generated qr code on your expo go app
