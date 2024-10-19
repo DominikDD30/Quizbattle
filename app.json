@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "QuizApp",
-    "slug": "QuizApp",
+    "name": "Quizbattle",
+    "slug": "Quizbattle",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -17,9 +17,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon2.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.dominikdd30.QuizApp"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +32,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "asfsfa"
+      }
     }
   }
 }
