@@ -1,8 +1,19 @@
-## Quizzbattle
+## Quizzbattle ![Quizzbattle Logo](logo.png)
 A Cross-Platform Real-Time Quiz Game Application
 # Description
 
 Quizzbattle is a cross-platform application that allows users to compete in real-time quizzes with friends. The app lets users create game rooms where others can join, and then compete by answering random questions from popular categories such as sports, science, technology, and more.
+
+<p align="center">
+  <p>
+  <img src="https://github.com/user-attachments/assets/21ac942d-8949-4ed3-aee5-dfa6405f2040" alt="Pierwszy obraz" width="500" style="margin-right: 20px;">
+  </p>
+  <p>
+  <img src="https://github.com/user-attachments/assets/f147fc15-12eb-467e-85d9-b6ed8d941b3f" alt="Drugi obraz" width="500" style="margin-left: 20px; margin-top: 20px;">
+  </p>
+
+</p>
+
 # Key Features:
 
 - Create rooms for players to join and compete.
