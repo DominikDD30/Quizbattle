@@ -18,6 +18,7 @@ import socket from '../socket';
 import DifficultySelector from './DifficultySelector';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { RootStackParamList } from './_layout';
+import CategorySelector from './CategorySelector';
 
 export interface Player {
   socketId: string;
@@ -38,7 +39,7 @@ const Start: React.FC<StartScreenProps> = ({ navigation, route }) => {
   const playerName = route.params?.playerName;
   const avatarIndex = route.params?.avatarIndex;
   const lang = route.params?.language;
-  const [language, setLanguage] = useState(lang||'EN');
+  const [language, setLanguage] = useState(lang||'PL');
   const [playerJoinedAlert, setPlayerJoinedAlert] = useState('');
   const opacity = useRef(new Animated.Value(0)).current;
   const [activeUsers, setActiveUsers] = useState(0);
@@ -46,6 +47,7 @@ const Start: React.FC<StartScreenProps> = ({ navigation, route }) => {
   const [roomName, setRoomName] = useState('');
   const [currentRoomId, setCurrentRoomId] = useState('');
   const [difficulty, setDifficulty] = useState('easy');
+  const [category, setCategory] = useState('0');
   const [isOwner, setIsOwner] = useState(false);
   const [isGuest, setIsGuest] = useState(false);
   const [windowWidth, setWindowWidth] = useState(Dimensions.get('window').width);
@@ -126,17 +128,20 @@ const Start: React.FC<StartScreenProps> = ({ navigation, route }) => {
   const joinRoom = () => {
     if (joinRoomText) {
       socket.emit('join_room', joinRoomText, playerName,language, avatarIndex, (success:boolean, room:any) => {
-        if (success && room) {
-          setRoomName(room.name);
-          setCurrentRoomId(room.name);
-          setActiveUsers(room.activeUsers);
-          Alert.alert(language === 'EN' ? 'Success' : 'Sukces', `${language === 'EN' ? 'You joined room' : 'Dołączyłeś do pokoju'}: ${room.name}`);
-        } else {
-          Alert.alert(language === 'EN' ? 'Error' : 'Błąd', language === 'EN' ? 'Room not found.' : 'Nie znaleziono pokoju o podanym ID.');
-        }
+          if (success && room) {
+            setRoomName(room.name);
+            setCurrentRoomId(room.name);
+            setActiveUsers(room.activeUsers);
+            setJoinRoomText('');
+            setIsGuest(true);
+            {Platform.OS == 'web' ?alert(`${language === 'EN' ? 'You joined room' : `Dołączyłeś do pokoju ${room.name}` }`)
+            :Alert.alert(language === 'EN' ? 'Success' : 'Sukces', `${language === 'EN' ? 'You joined room' : 'Dołączyłeś do pokoju'}: ${room.name}`)};
+          } else {
+            {Platform.OS == 'web' ? alert(`${language === 'EN' ? 'Room is either not found or full' : 'Nie znaleziono pokoju lub pokój jest pełny.'}`)
+            : Alert.alert(language === 'EN' ? 'Error' : 'Błąd', language === 'EN' ? 'Room is either not found or full' : 'Nie znaleziono pokoju lub pokój jest pełny.')};
+          }
       });
-      setJoinRoomText('');
-      setIsGuest(true);
+      
     }
   };
 
@@ -159,7 +164,7 @@ const Start: React.FC<StartScreenProps> = ({ navigation, route }) => {
     const generatedRoomName = Math.random().toString(36).substring(2, 8);
     Clipboard.setString(generatedRoomName);
     alert((language === 'EN' ? 'Room name copied to clipboard' : 'Nazwa pokoju skopiowana do schowka') + ': ' + generatedRoomName);
-    socket.emit('create_room', generatedRoomName,difficulty, playerName,language,avatarIndex, (newRoom:any) => {
+    socket.emit('create_room', generatedRoomName,difficulty,category, playerName,language,avatarIndex, (newRoom:any) => {
       setRoomName(newRoom.name);
       setCurrentRoomId(newRoom.name);
       setActiveUsers(newRoom.activeUsers);
@@ -194,48 +199,33 @@ const Start: React.FC<StartScreenProps> = ({ navigation, route }) => {
           <Text style={{ fontSize: 22, color: 'white' }}>
             {language === 'EN' ? 'Game Lang ' : 'Język Gry '}
           </Text>
-          <TouchableOpacity
-            style={{
-              width: 40,
-              height: 40,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderWidth: 1,
-              borderColor: 'gray',
-            }}
-            onPress={toggleLanguage}
-          >
-            <ImageBackground
-              source={language === 'EN'
-                ? require('../assets/images/eng.jpg')
-                : require('../assets/images/pl.webp')}
-              style={{
-                width: 40,
-                height: 40,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            />
+          <TouchableOpacity style={{width: 40,height: 40,justifyContent: 'center',alignItems: 'center',borderWidth: 1
+                ,borderColor: 'gray'}} onPress={toggleLanguage}>
+                <ImageBackground source={language === 'EN'? require('../assets/images/eng.jpg') : require('../assets/images/pl.webp')}
+                style={{ width: 40,height: 40,justifyContent: 'center',alignItems: 'center'}}/>
           </TouchableOpacity>
         </View>
 
         <View style={{ ...styles.formContainer, bottom: Platform.OS == 'web' ? 100 : 50 }}>
-          
+        {activeUsers==0&&<DifficultySelector lang={language} roomName={roomName} onDifficultyChange={setDifficulty} />}
+       
+            
+            
             {activeUsers>0&&<Text style={styles.buttonText}>
               {language === 'EN' ? 'Players in room: ' : 'Aktywni gracze w pokoju: '}{activeUsers}
             </Text>}
           <View style={styles.inputRow}>
+            {activeUsers==0&&<CategorySelector lang={language} roomName={roomName} onCategoryChange={setCategory} />}
+
             {!isGuest&&
-            <TouchableOpacity style={[styles.button,{marginRight:'auto'}]} onPress={(activeUsers > 1&&isOwner) ? startGame : createRoom}>
+            <TouchableOpacity style={[styles.button,{marginRight:0}]} onPress={(activeUsers > 1&&isOwner) ? startGame : createRoom}>
               <Text style={styles.buttonText}>
                 {activeUsers > 1 ? (language === 'EN' ? 'Start Game' : 'Rozpocznij grę') : (language === 'EN' ? 'Create New Room' : 'Utwórz nowy pokój')}
               </Text>
-            </TouchableOpacity>}
+            </TouchableOpacity>}              
+            
 
-              
-            {activeUsers==0&&<DifficultySelector lang={language} roomName={roomName} onDifficultyChange={setDifficulty} />}
-
-            {activeUsers!=0&&<TouchableOpacity style={[styles.button,{backgroundColor:'gray'}]} onPress={leaveRoom}>
+            {activeUsers!=0&&<TouchableOpacity style={[styles.button,{backgroundColor:'gray',marginLeft: isGuest ? 0 : 20}]} onPress={leaveRoom}>
               <Text style={styles.buttonText}>
                 {language === 'EN' ? 'Leave Room' : 'Opuść pokój'}
               </Text>
@@ -267,7 +257,6 @@ const Start: React.FC<StartScreenProps> = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   formContainer: {
     position: 'absolute',
-    bottom: 50,
     right: '10%',
     flex: 1,
     paddingTop: 25,
@@ -278,6 +267,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     width: 170,
+    height: 60,
   },
   buttonText: {
     color: '#FFF',
@@ -300,9 +290,11 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
-    padding: 10,
+    paddingHorizontal: 10,
+    height: 50,
     borderRadius: 5,
     width: 170,
+    marginTop:10,
     marginRight: 20,
     backgroundColor: '#fff',
   },

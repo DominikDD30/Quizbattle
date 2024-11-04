@@ -25,21 +25,21 @@ const Index: React.FC<Props> = ({ navigation }) => {
 
   const onJoin = (name:string,avatarIndex:number,language:string) => {
     setPopupVisible(false);
-    navigation.navigate('start',{playerName:name,avatarIndex:avatarIndex,language:language});
+    navigation.navigate('Start',{playerName:name,avatarIndex:avatarIndex,language:language});
   };
 
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+  <SafeAreaView style={{ flex: 1 }}>
 
-      <ImageBackground
-        source={require('../assets/images/logo7.jpg')}
-        style={{ flex: 1,height:'100%',width:'100%', justifyContent: 'center', alignItems: 'center' }}
-        resizeMode="cover"
-      >
-        <JoinPopup visible={popupVisible}  onJoin={onJoin}/>
-      </ImageBackground>
-    </SafeAreaView>
+        <ImageBackground
+          source={require('../assets/images/logo7.jpg')}
+          style={{ flex: 1, height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center' }}
+          resizeMode="cover"
+        >
+          <JoinPopup visible={popupVisible} onJoin={onJoin} />
+        </ImageBackground>
+      </SafeAreaView>
   );
 };
 

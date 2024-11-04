@@ -10,7 +10,7 @@ interface Props {
 const JoinPopup = ({ visible,  onJoin }:Props) => {
   const [username, setUsername] = useState('');
   const [position, setPosition] = useState(0);
-  const [language, setLanguage] = useState('EN');
+  const [language, setLanguage] = useState('PL');
   const [activeIndex, setActiveIndex] = useState(1);
   const avatarWidth = 100;
   const avatarMargin = 10;

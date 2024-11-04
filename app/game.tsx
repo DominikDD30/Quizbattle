@@ -29,7 +29,7 @@ const Game: React.FC<GameScreenProps> = ({ navigation, route }) => {
       return {name:_player.name,socketId:'',lang:_player.lang,avatarIndex:_player.avatarIndex, score:0};
     });
     setInitPlayersAmount(newPlayers.length);
-    console.log("newPlayers"+newPlayers.map(player => player.name+' '+player.lang));
+    console.log("newPlayers "+newPlayers.map(player => player.name+' '+player.lang));
       setPlayers(newPlayers);
   }, []);
 
@@ -100,7 +100,7 @@ const Game: React.FC<GameScreenProps> = ({ navigation, route }) => {
         :<OfflineAvatar/>}
       </View>
       
-      {initPlayersAmount === 3 &&
+      {initPlayersAmount >= 3 &&
       <View style={[styles.circleBottomLeft, styles.circle]}>
       {players[2] ?
       <>
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
-    width: 100,
+    minWidth: 100,
     height: 100,
     borderRadius: 50,
     position: 'absolute',
@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
     color: 'blue',
     fontSize: 20,
     fontWeight: 'bold',
+    flexWrap: 'nowrap',
   },
   points: {
     fontSize: 26,

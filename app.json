@@ -25,7 +25,9 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/icon2.png",
+      "name": "Quizbattle",
+      "slug": "Quizbattle"
     },
     "plugins": [
       "expo-router"
@@ -35,7 +37,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "asfsfa"
+        "projectId": "asgfeg"
       }
     }
   }

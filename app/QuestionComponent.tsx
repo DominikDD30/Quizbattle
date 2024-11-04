@@ -42,7 +42,7 @@ const QuestionComponent = ({ player, roomName,endGame }: Props) => {
                 endGame();
                 return;
             }
-            setSecondsLeft(9);
+            setSecondsLeft(12);
         })
     },[])
 
@@ -150,7 +150,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
         borderColor: 'gray',
         borderWidth: 2,
-        borderRadius: 10
+        borderRadius: 10,
+        padding:5
     },
     questionText: {
         fontSize: 24,
@@ -158,6 +159,7 @@ const styles = StyleSheet.create({
         color: 'black',
         textAlign: 'center',
         marginBottom: 10,
+        paddingHorizontal:5
     },
     answersContainer: {
         display: 'flex',

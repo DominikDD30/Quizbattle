@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Index from './index';
 import Game from './game';
 import Start from './start';
+import { Platform } from 'react-native';
 
 export type RootStackParamList = {
   Index: undefined;  
@@ -22,23 +23,31 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
+  const title = () => Platform.select({ web: `Quizapp`});
+  
   return (
     <NavigationContainer independent={true}>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen 
           name="Index" 
           component={Index} 
-          options={{ headerShown: false }} 
+          options={{
+            headerShown: false ,
+            title: title() }} 
         />
         <Stack.Screen 
           name="Start" 
           component={Start} 
-          options={{ headerShown: false }} 
+          options={{
+            headerShown: false ,
+            title: title() }} 
         />
         <Stack.Screen 
           name="Game" 
           component={Game} 
-          options={{ headerShown: false }} 
+          options={{
+            headerShown: false ,
+            title: title() }} 
         />
       </Stack.Navigator>
     </NavigationContainer>

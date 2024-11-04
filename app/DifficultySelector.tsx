@@ -21,7 +21,7 @@ const DifficultySelector = ({onDifficultyChange,roomName,lang}:Props) => {
 
   return (
     <View style={styles.columnBox}>
-    <Text style={styles.label}>{lang=='EN'?'Select Difficulty':`Wybierz \n poziom  trudności`}</Text>
+    <Text style={styles.label}>{lang=='EN'?'Difficulty':`Poziom  trudności`}</Text>
     <View style={styles.container}>
       <Picker
         selectedValue={difficulty}
@@ -41,29 +41,29 @@ const DifficultySelector = ({onDifficultyChange,roomName,lang}:Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 150,
+    width: 170,
     height: 50,
     marginTop:5,
     marginBottom:15,
     borderRadius: 10,
+
     backgroundColor:'white',
   },
   columnBox: {
     flexDirection: 'column',
-    alignItems: 'center',
     justifyContent: 'center',
-    marginLeft:'auto',
-    height:50
+    marginRight:'auto',
+    height:50,
+    marginBottom:10,
   },
   label: {
     fontSize: 18,
-    textAlign: 'center',
     color:'white',
   },
   picker: {
     zIndex: 3,
     height: 50,
-    width:150,
+    width:170,
     color: '#3b3b3b',
   },
 });
